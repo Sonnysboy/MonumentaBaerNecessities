@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "monumenta-baer-necessities",
+	"version": "${version}",
+	"name": "Monumenta Baer Necessities",
+	"description": "just a monu mod made by tristian",
+	"authors": [
+		"Tristian"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/monumentabaernecessities/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"client": [
+          "com.tristian.monumentabaernecessities.MonumentaBaerNecessities"
+		],
+		"modmenu": [
+			"com.tristian.monumentabaernecessities.options.ConfigMenu"
+		]
+	},
+	"mixins": [
+		"monumentabaernecessities.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.6",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"recommends": {
+		"modmenu": ">=7.2.1",
+		"cloth-config": ">=11.1.106"
+	},
+	"suggests": {
+		"citresewn": "*"
+	}
+}
