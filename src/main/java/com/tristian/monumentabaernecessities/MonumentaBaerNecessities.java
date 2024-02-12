@@ -2,11 +2,13 @@ package com.tristian.monumentabaernecessities;
 
 import ch.njol.minecraft.config.Config;
 import com.google.gson.JsonParseException;
+import com.tristian.monumentabaernecessities.features.CZCharmOverlay;
 import com.tristian.monumentabaernecessities.locations.Locations;
 import com.tristian.monumentabaernecessities.options.Options;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +64,9 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+
+		ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip
+		);
 	}
 	// credit: Unofficial Monumenta Mod
 	public static boolean isOnMonumenta() {
