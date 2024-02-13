@@ -1,4 +1,4 @@
-package com.tristian.monumentabaernecessities.features;
+package com.tristian.monumentabaernecessities.features.overlays;
 
 import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
 import com.tristian.monumentabaernecessities.items.ZenithCharm;
