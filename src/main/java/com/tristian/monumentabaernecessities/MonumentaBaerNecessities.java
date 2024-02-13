@@ -3,6 +3,7 @@ package com.tristian.monumentabaernecessities;
 import ch.njol.minecraft.config.Config;
 import com.google.gson.JsonParseException;
 import com.tristian.monumentabaernecessities.features.overlays.CZCharmOverlay;
+import com.tristian.monumentabaernecessities.features.player.PsPlayer;
 import com.tristian.monumentabaernecessities.locations.Locations;
 import com.tristian.monumentabaernecessities.options.Options;
 import net.fabricmc.api.ClientModInitializer;
@@ -65,6 +66,8 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
 		LOGGER.info("Hello Fabric world!");
 
 		ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip);
+
+		PsPlayer.register();
 //		HudRenderCallback
 
 	}

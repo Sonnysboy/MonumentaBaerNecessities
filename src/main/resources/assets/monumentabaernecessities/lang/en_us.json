@@ -1,4 +1,10 @@
 {
+
+
+  "key.monumenta-baer-necessities.psplayer" : "/ps a player",
+  "category.monumenta-baer-necessities.player" : "Player",
+
+
   "monumenta-baer-necessities.config.category.dev": "Debugging",
   "monumenta-baer-necessities.config.option.debugOptionsEnabled" : "Enable debug features",
 
