@@ -9,7 +9,9 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.item.ItemRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,8 +67,9 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
 
 		LOGGER.info("Hello Fabric world!");
 
-		ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip
-		);
+		ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip);
+//		HudRenderCallback
+
 	}
 	// credit: Unofficial Monumenta Mod
 	public static boolean isOnMonumenta() {

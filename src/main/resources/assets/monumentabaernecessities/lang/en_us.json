@@ -1,3 +1,9 @@
 {
-  "monumenta-baer-necessities.config.option.debugOptionsEnabled" : "Enable debug features"
+  "monumenta-baer-necessities.config.category.dev": "Debugging",
+  "monumenta-baer-necessities.config.option.debugOptionsEnabled" : "Enable debug features",
+
+
+
+  "monumenta-baer-necessities.config.category.inventory" : "Inventory",
+  "monumenta-baer-necessities.config.option.showCzRolls" : "Show rolls on Celestial Zenith Charms"
 }

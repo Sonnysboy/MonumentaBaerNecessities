@@ -1,52 +1,42 @@
 package com.tristian.monumentabaernecessities.features;
 
+import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
+import com.tristian.monumentabaernecessities.items.ZenithCharm;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.regex.Pattern;
-
-import com.tristian.monumentabaernecessities.utils.*;
-import net.minecraft.util.Formatting;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CZCharmOverlay {
 
 
     public static void onItemTooltip(ItemStack stack, TooltipContext context, List<Text> lines) {
-//        TODO
-        lines.add(Text.of("test"));
-        Optional<NbtCompound> data = NbtUtils.getMonumentaDataFromItem(stack);
-        if (data.isEmpty()) return;
-        Optional<String> tier = data.flatMap(x -> NbtUtils.getString(x, "Tier").describeConstable());
-        Optional<Boolean> alreadyDisplayed = data.flatMap(x -> Optional.of(NbtUtils.getBoolean(x, "czrollsdisplayed")));
 
-        if (alreadyDisplayed.get()) return;
-        if (tier.isEmpty() || !(tier.get().equals("zenithcharm"))) return;
-        final var zenithNbt = data.flatMap(x -> NbtUtils.getCompound(x, "PlayerModified"));
-        Optional<List<String>> lore = NbtUtils.getLore(stack);
-        if (lore.isEmpty()) return;
-        if (zenithNbt.isEmpty()) return;
-        var unboxedZenithNbt = zenithNbt.get();
-        List<String> loreUnboxed = lore.get();
-        System.out.println(unboxedZenithNbt);
-        for (int i = 6; i < loreUnboxed.size(); i++) {
+        if (!MonumentaBaerNecessities.options.showCzRolls) return;
 
-            var current = loreUnboxed.get(i);
-            var effect = Objects.requireNonNull(Formatting.strip(current)).replaceAll(".+? ", "");
-            System.out.println(effect);
-            if (unboxedZenithNbt.contains(effect)) {
-                System.out.println("has");
-            }
+        final var charm = ZenithCharm.fromItem(stack);
+        if (charm.isEmpty()) return; // not a charm
 
+        final var rolls = charm.get().getData().getRolls();
+
+        if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
+            assert MinecraftClient.getInstance().player != null;
+            MinecraftClient.getInstance().player.sendMessage(Text.of(charm.get().toString()));
+            MinecraftClient.getInstance().player.sendMessage(Text.of(rolls.toString()));
         }
 
-
-
-
-
+        final var idx = new AtomicInteger(6);
+        for (; idx.get() < lines.size(); idx.incrementAndGet()) {
+            var t = lines.get(idx.get());
+            rolls.forEach((name, value) -> {
+                if (Formatting.strip(t.getString()).contains(name)) {
+                    lines.set(idx.get(), t.copy().append(String.format(" [%.2f%%]", 100 * value)));
+                }
+            });
+        }
     }
 }

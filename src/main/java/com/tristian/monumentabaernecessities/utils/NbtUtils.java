@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// ive done too much with MONADS!
 public class NbtUtils {
 
 
@@ -34,6 +35,7 @@ public class NbtUtils {
     public static NbtList getList(NbtCompound compound, String tag, int type) {
         return compound.getList(tag, type);
     }
+//    todo hmmm
     public static Optional<List<String>> getLore(ItemStack item) {
         return getNbt(item).map(y -> getCompound(y, "display")).map(x -> {
             List<String> list = new ArrayList<>();

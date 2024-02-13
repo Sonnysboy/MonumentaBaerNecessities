@@ -22,7 +22,7 @@ public class ConfigMenu implements ModMenuApi {
         return ModMenuConfigSetup.getModConfigScreenFactory(MonumentaBaerNecessities.MOD_IDENTIFIER + ".config", () -> MonumentaBaerNecessities.options, new Options());
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unused"})
     public static void registerTypes() {
         ClothConfigSetup.registerType(ElementPosition.class, (value, defaultValue, field, translatePath, saveConsumer) -> {
             List<AbstractConfigListEntry> entries = new ArrayList<>();

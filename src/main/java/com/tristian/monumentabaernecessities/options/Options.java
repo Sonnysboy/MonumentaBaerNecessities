@@ -8,7 +8,14 @@ public class Options implements ch.njol.minecraft.config.Options {
 
 
     @Category("dev")
-    public boolean debugOptionsEnabled = true;
+    public boolean debugOptionsEnabled = false;
+
+    /**
+     * For cz hovering tooltip
+     */
+    @Category("inventory")
+    public boolean showCzRolls = true;
+
 
     @Override
     public void onUpdate() {
