@@ -1,5 +1,6 @@
 package com.tristian.monumentabaernecessities.mixin;
 
+import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
 import com.tristian.monumentabaernecessities.features.overlays.torohealth.BarStates;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +23,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (!this.getWorld().isClient) {
             return;
         }
-        BarStates.tick();
+        if (MonumentaBaerNecessities.options.cosmicStyleDamageIndicators)
+            BarStates.tick();
     }
 
 }

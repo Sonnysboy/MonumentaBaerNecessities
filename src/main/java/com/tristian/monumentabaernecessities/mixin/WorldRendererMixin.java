@@ -1,5 +1,6 @@
 package com.tristian.monumentabaernecessities.mixin;
 
+import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
 import com.tristian.monumentabaernecessities.features.overlays.torohealth.ParticleRenderer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
@@ -23,7 +24,7 @@ public class WorldRendererMixin {
 	private void renderEntity(Entity entity, double x, double y, double z, float g,
 							  MatrixStack matrix, VertexConsumerProvider v, CallbackInfo info) {
 		if (entity instanceof LivingEntity) {
-			ParticleRenderer.HealthBarRenderer.prepareRenderInWorld((LivingEntity) entity);
+			if (MonumentaBaerNecessities.options.cosmicStyleDamageIndicators) ParticleRenderer.HealthBarRenderer.prepareRenderInWorld((LivingEntity) entity);
 		}
 	}
 
@@ -31,8 +32,10 @@ public class WorldRendererMixin {
 	private void render(MatrixStack matrices, float tickDelta, long limitTime,
 						boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer,
 						LightmapTextureManager lightmapTextureManager, Matrix4f matrix, CallbackInfo info) {
-		ParticleRenderer.HealthBarRenderer.renderInWorld(matrices, this.bufferBuilders.getEntityVertexConsumers(), camera);
-		ParticleRenderer.renderParticles(matrices, this.bufferBuilders.getEntityVertexConsumers(), camera);
+		if (MonumentaBaerNecessities.options.cosmicStyleDamageIndicators) {
+			ParticleRenderer.HealthBarRenderer.renderInWorld(matrices, this.bufferBuilders.getEntityVertexConsumers(), camera);
+			ParticleRenderer.renderParticles(matrices, this.bufferBuilders.getEntityVertexConsumers(), camera);
+		}
 	}
 
 }

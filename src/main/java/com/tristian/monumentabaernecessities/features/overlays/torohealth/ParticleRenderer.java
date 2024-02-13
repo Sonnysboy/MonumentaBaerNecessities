@@ -67,9 +67,9 @@ public class ParticleRenderer {
                 float height = entity.getHeight() + 0.6F - (sneaking ? 0.25F : 0.0F);
 
                 float tickDelta = client.getTickDelta();
-                double x = MathHelper.lerp((double) tickDelta, entity.prevX, entity.getX());
-                double y = MathHelper.lerp((double) tickDelta, entity.prevY, entity.getY());
-                double z = MathHelper.lerp((double) tickDelta, entity.prevZ, entity.getZ());
+                double x = MathHelper.lerp(tickDelta, entity.prevX, entity.getX());
+                double y = MathHelper.lerp(tickDelta, entity.prevY, entity.getY());
+                double z = MathHelper.lerp(tickDelta, entity.prevZ, entity.getZ());
 
                 Vec3d camPos = camera.getPos();
                 double camX = camPos.x;
@@ -108,7 +108,7 @@ public class ParticleRenderer {
         public static void drawDamageNumber(MatrixStack matrix,
                                             VertexConsumerProvider vertexConsumerProvider,
                                             int dmg, double x, double y, float width) {
-            int i = Math.abs(Math.round(dmg));
+            int i = Math.abs(dmg);
             if (i == 0) {
                 return;
             }
@@ -142,9 +142,9 @@ public class ParticleRenderer {
         MinecraftClient client = MinecraftClient.getInstance();
         float tickDelta = client.getTickDelta();
 
-        double x = MathHelper.lerp((double) tickDelta, particle.xPrev, particle.x);
-        double y = MathHelper.lerp((double) tickDelta, particle.yPrev, particle.y);
-        double z = MathHelper.lerp((double) tickDelta, particle.zPrev, particle.z);
+        double x = MathHelper.lerp(tickDelta, particle.xPrev, particle.x);
+        double y = MathHelper.lerp(tickDelta, particle.yPrev, particle.y);
+        double z = MathHelper.lerp(tickDelta, particle.zPrev, particle.z);
 
         Vec3d camPos = camera.getPos();
         double camX = camPos.x;
@@ -162,7 +162,6 @@ public class ParticleRenderer {
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE,
                 GL11.GL_ZERO);
-//        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         HealthBarRenderer.drawDamageNumber(matrix, vertexConsumerProvider, particle.damage, 0, 0, 10);
 

@@ -9,6 +9,8 @@
   "monumenta-baer-necessities.config.option.debugOptionsEnabled" : "Enable debug features",
 
 
+  "monumenta-baer-necessities.config.category.render" : "World",
+  "monumenta-baer-necessities.config.option.cosmicStyleDamageIndicators" : "Cosmic-Style damage indicators",
 
   "monumenta-baer-necessities.config.category.inventory" : "Inventory",
   "monumenta-baer-necessities.config.option.showCzRolls" : "Show rolls on Celestial Zenith Charms"
