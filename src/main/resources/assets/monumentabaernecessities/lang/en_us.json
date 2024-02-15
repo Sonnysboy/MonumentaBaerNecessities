@@ -13,5 +13,6 @@
   "monumenta-baer-necessities.config.option.cosmicStyleDamageIndicators" : "Cosmic-Style damage indicators",
 
   "monumenta-baer-necessities.config.category.inventory" : "Inventory",
-  "monumenta-baer-necessities.config.option.showCzRolls" : "Show rolls on Celestial Zenith Charms"
+  "monumenta-baer-necessities.config.option.showCzRolls" : "Show rolls on Celestial Zenith Charms",
+  "monumenta-baer-necessities.config.option.inventoryWoolItemOutlines" : "Give items in an inventory a colored outline based off their wool dungeon."
 }

@@ -16,11 +16,15 @@ public class Options implements ch.njol.minecraft.config.Options {
     @Category("inventory")
     public boolean showCzRolls = true;
 
+    @Category("inventory")
+    public boolean inventoryWoolItemOutlines = true;
+
     /**
      *
      */
     @Category("world")
     public boolean cosmicStyleDamageIndicators = true;
+
 
 
     @Override

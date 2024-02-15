@@ -166,7 +166,6 @@ public class ParticleRenderer {
         HealthBarRenderer.drawDamageNumber(matrix, vertexConsumerProvider, particle.damage, 0, 0, 10);
 
         RenderSystem.disableBlend();
-
         matrix.pop();
     }
 }
