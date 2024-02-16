@@ -51,7 +51,7 @@ public class ApiRequests {
         Gson g = new Gson();
         JsonObject o = g.fromJson(res, JsonObject.class);
         o.asMap().forEach((k, v) -> {
-            System.out.println(k + ":" +ItemParser.decode(v.getAsJsonObject()) + "\n");
+            System.out.println(k + ":" +ItemParser.decode(k, v.getAsJsonObject()) + "\n");
         });
 
     }

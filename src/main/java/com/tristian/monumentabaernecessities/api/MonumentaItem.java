@@ -1,8 +1,8 @@
 package com.tristian.monumentabaernecessities.api;
 
 import com.google.gson.JsonObject;
-
-import java.util.Optional;
+import com.tristian.monumentabaernecessities.api.stats.ItemStats;
+import org.jetbrains.annotations.Nullable;
 
 /**
  *  So here's what we want to make sure we have:
@@ -19,18 +19,38 @@ import java.util.Optional;
  */
 public class MonumentaItem {
 
+
+    // as stated in the json.
+    private final String internalKey;
+
+    @Nullable
     private final String name;
+    @Nullable
     private final String location;
+    @Nullable
     private final String tier;
+    @Nullable
+    private final String plainLore;
+
     private final String baseItem;
     private final String releaseStatus;
     private final String nbt;
     private final String type;
-    private final String plainLore;
-    private final JsonObject stats;
+    private final ItemStats stats;
     private final String region;
 
-    public MonumentaItem(String name, String region, String location, String tier, String baseItem, String releaseStatus, String nbt, String type, JsonObject stats, String lore) {
+    public MonumentaItem(String internalKey,
+                         @Nullable String name,
+                         String region,
+                         @Nullable String location,
+                         @Nullable String tier,
+                         String baseItem,
+                         String releaseStatus,
+                         String nbt,
+                         String type,
+                         ItemStats stats,
+                         @Nullable String lore) {
+        this.internalKey = internalKey;
         this.name = name;
         this.location = location;
         this.tier = tier;
@@ -45,7 +65,7 @@ public class MonumentaItem {
 
     @Override
     public String toString() {
-        return "MonumentaItem{" +
+        return "MonumentaItem("+internalKey+"): "+"{" +
                 "name='" + name + '\'' +
                 ", location='" + location + '\'' +
                 ", tier='" + tier + '\'' +
@@ -58,4 +78,5 @@ public class MonumentaItem {
                 ", region="+region+
                 '}';
     }
+
 }

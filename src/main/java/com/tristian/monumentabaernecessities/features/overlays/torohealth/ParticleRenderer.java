@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ParticleRenderer {
 
-    public class HealthBarRenderer {
+    public static class HealthBarRenderer {
 
         private static final int DARK_GRAY = 0x808080;
         private static final float FULL_SIZE = 40;
