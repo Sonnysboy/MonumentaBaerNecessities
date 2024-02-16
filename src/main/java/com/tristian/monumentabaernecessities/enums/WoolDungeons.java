@@ -9,7 +9,7 @@ public enum WoolDungeons {
     YELLOW("Vernal Nightmare", Region.VALLEY),
     // r2
     LIME("Salazar's Folly", Region.ISLES),
-    PINK("Harmonic Arboretumm", Region.ISLES),
+    PINK("Harmonic Arboretum", Region.ISLES),
     GRAY("Valley of Forgotten Pharaohs", Region.ISLES),
     LIGHT_GRAY("Palace of Mirrors", Region.ISLES),
     CYAN("Scourge of Lunacy", Region.ISLES),
