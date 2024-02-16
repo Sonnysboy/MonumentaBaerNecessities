@@ -1,6 +1,7 @@
 package com.tristian.monumentabaernecessities.api;
 
 import com.google.gson.JsonObject;
+import com.tristian.monumentabaernecessities.api.enums.Locations;
 import com.tristian.monumentabaernecessities.api.stats.ItemStats;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,8 +26,7 @@ public class MonumentaItem {
 
     @Nullable
     private final String name;
-    @Nullable
-    private final String location;
+    private final Locations location;
     @Nullable
     private final String tier;
     @Nullable
@@ -42,7 +42,7 @@ public class MonumentaItem {
     public MonumentaItem(String internalKey,
                          @Nullable String name,
                          String region,
-                         @Nullable String location,
+                         Locations location,
                          @Nullable String tier,
                          String baseItem,
                          String releaseStatus,

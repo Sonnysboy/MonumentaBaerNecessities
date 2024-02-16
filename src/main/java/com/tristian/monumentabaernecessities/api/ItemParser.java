@@ -1,6 +1,7 @@
 package com.tristian.monumentabaernecessities.api;
 
 import com.google.gson.JsonObject;
+import com.tristian.monumentabaernecessities.api.enums.Locations;
 import com.tristian.monumentabaernecessities.api.stats.ItemStats;
 
 public class ItemParser {
@@ -17,14 +18,15 @@ public class ItemParser {
 
         System.out.println("for object : " + object);
 
-        String location = null;
+        Locations location = Locations.NIL;
         String region = null;
-        String tier = null;
-        String name = null;
-        String lore = null;
+        String tier   = null;
+        String name   = null;
+        String lore   = null;
 
+//we handle all the potential nulls first
         if (object.has("location")) {
-            location = object.get("location").getAsString();
+            location = Locations.fromJsonKey(object.get("location").getAsString());
         }
 
         if (object.has("region")) {
@@ -38,6 +40,9 @@ public class ItemParser {
         if (object.has("name")) {
             name = object.get("name").getAsString();
         }
+        if (object.has("lore")) {
+            lore = object.get("lore").getAsString();
+        }
 
         String baseItem = object.get("base_item").getAsString();
 
@@ -50,9 +55,6 @@ public class ItemParser {
         JsonObject stats = object.get("stats").getAsJsonObject();
 
         // this has no formatting codes, we'll have to use nbt for that.
-        if (object.has("lore")) {
-            lore = object.get("lore").getAsString();
-        }
         return new MonumentaItem(key, name, region, location, tier, baseItem, releaseStatus, nbt, type, parseStats(stats), lore);
     }
 

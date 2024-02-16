@@ -69,7 +69,11 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
 		ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip);
 
 		PsPlayer.register();
-		ApiRequests.main(new String[] {});
+		try {
+			ApiRequests.main(new String[] {});
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 //		HudRenderCallback
 
 	}

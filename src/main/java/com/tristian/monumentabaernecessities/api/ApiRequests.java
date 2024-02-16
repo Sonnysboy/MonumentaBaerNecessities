@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -46,13 +44,24 @@ public class ApiRequests {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String res = fetchResponse();
         Gson g = new Gson();
         JsonObject o = g.fromJson(res, JsonObject.class);
-        o.asMap().forEach((k, v) -> {
-            System.out.println(k + ":" +ItemParser.decode(k, v.getAsJsonObject()) + "\n");
-        });
+
+        File f = new File("monkey.txt");
+        f.createNewFile();
+        try (FileWriter fw = new FileWriter(f)) {
+            o.asMap().forEach((k, v) -> {
+                try {
+                    fw.write(k + ":" +ItemParser.decode(k, v.getAsJsonObject()) + "\n");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

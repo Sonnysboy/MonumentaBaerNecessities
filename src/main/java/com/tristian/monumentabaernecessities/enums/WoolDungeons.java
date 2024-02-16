@@ -1,5 +1,7 @@
 package com.tristian.monumentabaernecessities.enums;
 
+import com.tristian.monumentabaernecessities.api.enums.Region;
+
 public enum WoolDungeons {
     // r1
     WHITE("Halls of Wind and Blood", Region.VALLEY),
