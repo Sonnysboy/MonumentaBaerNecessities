@@ -1,7 +1,5 @@
 package com.tristian.monumentabaernecessities.api.enums;
 
-import org.jetbrains.annotations.Nullable;
-
 public enum Locations {
 
     WHITE("White"),
@@ -92,10 +90,10 @@ public enum Locations {
     ;
 
 
-    private final String jsonKey;
+    private final String jsonValue;
 
-    Locations(String jsonKey) {
-        this.jsonKey = jsonKey;
+    Locations(String jsonValue) {
+        this.jsonValue = jsonValue;
     }
 
     /**
@@ -103,15 +101,15 @@ public enum Locations {
      * @param value The value returned from the monu api, can be null
      * @return The <code>Locations</code> value corresponding to the json value, or
      */
-    public static Locations fromJsonKey(String value) {
+    public static Locations fromJson(String value) {
         for (Locations location: values()) {
             if (location == NIL) continue;
-            if (location.getJsonKey().equals(value)) return location;
+            if (location.getJsonValue().equals(value)) return location;
         }
         return NIL;
     }
 
-    public String getJsonKey() {
-        return jsonKey;
+    public String getJsonValue() {
+        return jsonValue;
     }
 }

@@ -29,7 +29,7 @@ public class ApiRequests {
 
             String inputLine;
 
-            StringBuffer content = new StringBuffer();
+            StringBuilder content = new StringBuilder();
 
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);

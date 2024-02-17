@@ -2,6 +2,8 @@ package com.tristian.monumentabaernecessities.api;
 
 import com.google.gson.JsonObject;
 import com.tristian.monumentabaernecessities.api.enums.Locations;
+import com.tristian.monumentabaernecessities.api.enums.Regions;
+import com.tristian.monumentabaernecessities.api.enums.Tiers;
 import com.tristian.monumentabaernecessities.api.stats.ItemStats;
 
 public class ItemParser {
@@ -19,22 +21,22 @@ public class ItemParser {
         System.out.println("for object : " + object);
 
         Locations location = Locations.NIL;
-        String region = null;
-        String tier   = null;
+        Regions region = Regions.NIL;
+        Tiers tier   = Tiers.NIL;
         String name   = null;
         String lore   = null;
 
 //we handle all the potential nulls first
         if (object.has("location")) {
-            location = Locations.fromJsonKey(object.get("location").getAsString());
+            location = Locations.fromJson(object.get("location").getAsString());
         }
 
         if (object.has("region")) {
-            region = object.get("region").getAsString();
+            region = Regions.fromJson(object.get("region").getAsString());
         }
 
         if (object.has("tier")) {
-            tier = object.get("tier").getAsString();
+            tier = Tiers.fromJson(object.get("tier").getAsString());
         }
 
         if (object.has("name")) {

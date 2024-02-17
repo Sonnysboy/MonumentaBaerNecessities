@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
  */
 @Mixin(PlayerListHud.class)
 public interface PlayerListHudAccessor {
+
     @Accessor("header")
     Text getHeader();
 
