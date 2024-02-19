@@ -9,7 +9,20 @@ import com.tristian.monumentabaernecessities.api.stats.ItemStats;
 public class ItemParser {
 
 
-
+    /** Some fields in the json object can be null. Those fields are:
+     * <ul>
+     *     <li> location </li>
+     *     <li> region </li>
+     *     <li> tier </li>
+     *     <li> name</li>
+     *     <li> lore</li>
+     *
+     * </ul>
+     *
+     * @param key The key's name given by the api.
+     * @param object The JsonObject from the api.
+     * @return A MonumentaItem represented by the given json data.
+     */
     public static MonumentaItem decode(String key, JsonObject object) {
 
 
