@@ -86,7 +86,7 @@ public enum Locations {
     CHALLENGER("Challenger"),
     TRUE_NORTH("True North"),
     STARPOINT("Starpoint"),
-    NIL(null)
+    NIL("")
     ;
 
 

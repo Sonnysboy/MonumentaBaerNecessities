@@ -4,7 +4,7 @@ public enum Regions {
     VALLEY("Valley"),
     ISLES("Isles"),
     RING("Ring"),
-    NIL(null), // some items are regionless?
+    NIL(""), // some items are regionless?
     ;
 
 

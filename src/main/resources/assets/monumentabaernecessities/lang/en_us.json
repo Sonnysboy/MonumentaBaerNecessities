@@ -2,7 +2,7 @@
 
 
   "key.monumenta-baer-necessities.psplayer" : "/ps a player",
-  "category.monumenta-baer-necessities.player" : "Player",
+  "category.monumenta-baer-necessities" : "Monumenta Baer Necessities",
 
 
   "monumenta-baer-necessities.config.category.dev": "Debugging",

@@ -54,6 +54,8 @@ public class MonumentaItem {
     private final ItemStats stats;
 
     private final Regions region;
+    @Nullable
+    private CharmData charmData;
 
 
     /**
@@ -203,7 +205,7 @@ public class MonumentaItem {
      */
     @Override
     public String toString() {
-        return "MonumentaItem(" + internalKey + "): " + "{" +
+        String ret = "MonumentaItem(" + internalKey + "): " + "{" +
                 "name='" + name + '\'' +
                 ", location='" + location + '\'' +
                 ", tier='" + tier + '\'' +
@@ -213,7 +215,29 @@ public class MonumentaItem {
                 ", type='" + type + '\'' +
                 ", stats=" + stats +
                 ", lore=\"" + plainLore + '"' +
-                ", region=" + region +
-                '}';
+                ", region=" + region;
+        if (this.charmData != null) {
+            ret += "," + "\ncharm info:\nclass_name="+getCharmData().get().className + ", power="+getCharmData().get().charmPower;
+        }
+
+        return ret + "}";
     }
+
+
+    protected void setCharmData(@Nullable CharmData data) {
+        this.charmData =data;
+    }
+
+    /**
+     *
+     * @return The data if it's a charm, or Optional.empty if it's not.
+     */
+    public Optional<CharmData> getCharmData() {
+        return Optional.ofNullable(charmData);
+    }
+    // charm data for charms
+    protected record CharmData(
+            String className,
+            int charmPower
+    ) {}
 }

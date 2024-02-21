@@ -30,7 +30,7 @@ public class PsPlayer {
                 "key.monumenta-baer-necessities.psplayer",
                 InputUtil.Type.MOUSE,
                 GLFW.GLFW_MOUSE_BUTTON_MIDDLE,
-                "category.monumenta-baer-necessities.player"
+                "category.monumenta-baer-necessities"
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (binding.wasPressed()) {

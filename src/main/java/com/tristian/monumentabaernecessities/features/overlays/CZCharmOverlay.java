@@ -1,6 +1,7 @@
 package com.tristian.monumentabaernecessities.features.overlays;
 
 import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
+import com.tristian.monumentabaernecessities.api.Items;
 import com.tristian.monumentabaernecessities.items.ZenithCharm;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
@@ -9,6 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CZCharmOverlay {
@@ -33,7 +35,7 @@ public class CZCharmOverlay {
         for (; idx.get() < lines.size(); idx.incrementAndGet()) {
             var t = lines.get(idx.get());
             rolls.forEach((name, value) -> {
-                if (Formatting.strip(t.getString()).contains(name)) {
+                if (Objects.requireNonNull(Formatting.strip(t.getString())).contains(name)) {
                     lines.set(idx.get(), t.copy().append(String.format(" [%.2f%%]", 100 * value)));
                 }
             });

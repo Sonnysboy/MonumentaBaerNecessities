@@ -26,12 +26,8 @@ public class ItemParser {
     public static MonumentaItem decode(String key, JsonObject object) {
 
 
-        if (object.has("power")) {
-            System.out.println("charm detected, skipping for now.");
-            return null;
-        }
 
-        System.out.println("for object : " + object);
+//        System.out.println("for object : " + object);
 
         Locations location = Locations.NIL;
         Regions region = Regions.NIL;
@@ -69,8 +65,14 @@ public class ItemParser {
 
         JsonObject stats = object.get("stats").getAsJsonObject();
 
+
         // this has no formatting codes, we'll have to use nbt for that.
-        return new MonumentaItem(key, name, region, location, tier, baseItem, releaseStatus, nbt, type, parseStats(stats), lore);
+        MonumentaItem ret = new MonumentaItem(key, name, region, location, tier, baseItem, releaseStatus, nbt, type, parseStats(stats), lore);
+        if (object.has("power")) {
+            assert object.has("class_name");
+            ret.setCharmData(new MonumentaItem.CharmData(object.get("class_name").getAsString(), object.get("power").getAsInt()));
+        }
+        return ret;
     }
 
     private static ItemStats parseStats(JsonObject object) {

@@ -12,7 +12,7 @@ public enum Tiers {
     RARE("Rare"),
     CURRENCY("Currency"),
     ARTIFACT("Artifact"),
-    NIL(null); // some items have no tier
+    NIL(""); // some items have no tier
 
     private final String jsonValue;
 
