@@ -246,8 +246,9 @@ public class ZenithCharm {
                 if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
                     MinecraftClient.getInstance().player.sendMessage(Text.of(charmData.getString("DEPTHS_CHARM_EFFECT"+amount) + ":" + charmData.get("DEPTHS_CHARM_ROLLS"+amount)));
                 }
-                rolls.put(charmData.getString("DEPTHS_CHARM_EFFECT" + amount),
-                        charmData.getDouble("DEPTHS_CHARM_ROLLS" + amount));
+                String key;
+                rolls.put(key = charmData.getString("DEPTHS_CHARM_EFFECT" + amount),
+                        key.contains("Cooldown") ? 1 - charmData.getDouble("DEPTHS_CHARM_ROLLS" + amount) : charmData.getDouble("DEPTHS_CHARM_ROLLS" + amount));
             }
             return rolls;
         }
