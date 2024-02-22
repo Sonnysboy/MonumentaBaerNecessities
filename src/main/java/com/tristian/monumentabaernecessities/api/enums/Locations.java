@@ -1,5 +1,7 @@
 package com.tristian.monumentabaernecessities.api.enums;
 
+import java.util.Optional;
+
 public enum Locations {
 
     WHITE("White"),
@@ -86,7 +88,7 @@ public enum Locations {
     CHALLENGER("Challenger"),
     TRUE_NORTH("True North"),
     STARPOINT("Starpoint"),
-    NIL("")
+    SIRIUS("Sirius"),
     ;
 
 
@@ -98,15 +100,14 @@ public enum Locations {
 
     /**
      *
-     * @param value The value returned from the monu api, can be null
-     * @return The <code>Locations</code> value corresponding to the json value, or
+     * @param value The value returned from the monu api.
+     * @return An Optional containing the <code>Locations</code>, or empty.
      */
-    public static Locations fromJson(String value) {
+    public static Optional<Locations> fromJson(String value) {
         for (Locations location: values()) {
-            if (location == NIL) continue;
-            if (location.getJsonValue().equals(value)) return location;
+            if (location.getJsonValue().equals(value)) return Optional.of(location);
         }
-        return NIL;
+        return Optional.empty();
     }
 
     public String getJsonValue() {

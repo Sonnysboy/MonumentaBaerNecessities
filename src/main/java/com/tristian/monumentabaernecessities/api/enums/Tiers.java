@@ -1,5 +1,7 @@
 package com.tristian.monumentabaernecessities.api.enums;
 
+import java.util.Optional;
+
 public enum Tiers {
 
 
@@ -11,8 +13,7 @@ public enum Tiers {
     KEY("Key"),
     RARE("Rare"),
     CURRENCY("Currency"),
-    ARTIFACT("Artifact"),
-    NIL(""); // some items have no tier
+    ARTIFACT("Artifact");
 
     private final String jsonValue;
 
@@ -25,11 +26,16 @@ public enum Tiers {
     }
 
 
-    public static Tiers fromJson(String value) {
+    /**
+     *
+     *
+     * @param value The value returned from the monu api.
+     * @return An Optional containing the <code>Tiers</code>, or empty.
+     */
+    public static Optional<Tiers> fromJson(String value) {
         for (Tiers tiers : values()) {
-            if (tiers == NIL) continue;
-            if (tiers.getJsonValue().equals(value)) return tiers;
+            if (tiers.getJsonValue().equals(value)) return Optional.of(tiers);
         }
-        return NIL;
+        return Optional.empty(); // some items have no tier
     }
 }

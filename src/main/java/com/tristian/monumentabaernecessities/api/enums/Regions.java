@@ -1,10 +1,11 @@
 package com.tristian.monumentabaernecessities.api.enums;
 
+import java.util.Optional;
+
 public enum Regions {
     VALLEY("Valley"),
     ISLES("Isles"),
     RING("Ring"),
-    NIL(""), // some items are regionless?
     ;
 
 
@@ -22,15 +23,14 @@ public enum Regions {
 
     /**
      *
-     * @param value The value returned from the monu api, can be null
-     * @return The <code>Locations</code> value corresponding to the json value, or
+     * @param value The value returned from the monu api.
+     * @return An Optional containing the <code>Regions</code>, or empty.
      */
-    public static Regions fromJson(String value) {
+    public static Optional<Regions> fromJson(String value) {
         for (Regions regions : values()) {
-            if (regions == NIL) continue;
-            if (regions.getJsonValue().equals(value)) return regions;
+            if (regions.getJsonValue().equals(value)) return Optional.of(regions);
         }
-        return NIL;
+        return Optional.empty();
     }
 
 

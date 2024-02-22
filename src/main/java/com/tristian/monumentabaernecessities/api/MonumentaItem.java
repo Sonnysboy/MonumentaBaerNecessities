@@ -31,11 +31,13 @@ public class MonumentaItem {
     private final String name;
 
 
+    @Nullable
     private final Locations location;
 
     /**
      * The tier of the item.
      */
+    @Nullable
     private final Tiers tier;
 
 
@@ -122,8 +124,8 @@ public class MonumentaItem {
      *
      * @return The location of the item.
      */
-    public Locations getLocation() {
-        return location;
+    public Optional<Locations> getLocation() {
+        return Optional.ofNullable(location);
     }
 
     /**
@@ -131,8 +133,8 @@ public class MonumentaItem {
      *
      * @return The tier of the item.
      */
-    public Tiers getTier() {
-        return tier;
+    public Optional<Tiers> getTier() {
+        return Optional.ofNullable(tier);
     }
 
     /**

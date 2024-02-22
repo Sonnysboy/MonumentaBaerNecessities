@@ -1,5 +1,6 @@
 package com.tristian.monumentabaernecessities.mixin;
 
+import com.tristian.monumentabaernecessities.features.inventory.AbbreviateRarity;
 import com.tristian.monumentabaernecessities.features.inventory.ColorByWoolDungeon;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;

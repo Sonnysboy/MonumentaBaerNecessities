@@ -3,6 +3,8 @@ package com.tristian.monumentabaernecessities;
 import ch.njol.minecraft.config.Config;
 import com.google.gson.JsonParseException;
 import com.tristian.monumentabaernecessities.api.Items;
+import com.tristian.monumentabaernecessities.features.debug.ItemDebuggingHelpers;
+import com.tristian.monumentabaernecessities.features.inventory.AbbreviateRarity;
 import com.tristian.monumentabaernecessities.features.overlays.CZCharmOverlay;
 import com.tristian.monumentabaernecessities.features.player.PsPlayer;
 import com.tristian.monumentabaernecessities.locations.Locations;
@@ -44,6 +46,8 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         loadItems();
+
+        ItemDebuggingHelpers.register();
 
 
         try {

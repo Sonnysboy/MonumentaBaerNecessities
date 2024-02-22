@@ -4,12 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
+import net.minecraft.text.Text;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static com.tristian.monumentabaernecessities.MonumentaBaerNecessities.LOGGER;
@@ -17,7 +17,7 @@ import static com.tristian.monumentabaernecessities.MonumentaBaerNecessities.LOG
 public class Items {
 
 
-    private static final List<MonumentaItem> items;
+    private static final Set<MonumentaItem> items;
 
     //    basically everything's really FUCKING SLOW.
     private static final HashMap<NbtCompound, MonumentaItem> nbts;
@@ -26,8 +26,11 @@ public class Items {
     static void addItem(MonumentaItem item) {
         items.add(item);
         try {
-            NbtCompound nbt = StringNbtReader.parse(item.getNbt());
-            nbt.remove("Damage"); // you can go fuck yourself
+            NbtCompound nbt = StringNbtReader.parse(item.getNbt()).getCompound("Monumenta");
+            if (nbt == null) {
+                System.out.println(item + " MONUMENTA NBT IS NULL");
+            }
+//            nbt.remove("Damage"); // you can go fuck yourself
             nbts.put(nbt, item);
         } catch (CommandSyntaxException e) {
             throw new RuntimeException(e);
@@ -37,27 +40,28 @@ public class Items {
     }
 
 
-    public static List<MonumentaItem> getAllItems() {
+    public static Set<MonumentaItem> getAllItems() {
         return items;
     }
 
 
-//    private static final HashMap<NbtCompound, Optional<MonumentaItem>> memo = new HashMap<>(); // yes i am memoizing this lmao
-
+    // memoized
+    private static final HashMap<NbtCompound, Optional<MonumentaItem>> memo = new HashMap<>();
     public static Optional<MonumentaItem> fromNbt(NbtCompound compound) {
 
         if (compound == null) return Optional.empty();
+        if (memo.containsKey(compound)) return memo.get(compound);
         NbtCompound replaced = compound.copy();
-        replaced.remove("Damage");
-        if (!(nbts.containsKey(replaced))) {
-            LOGGER.info(replaced + " is not a thing.");
-            return Optional.empty();
-        }
-        return Optional.of(nbts.get(replaced));
+        NbtCompound monumenta = replaced.getCompound("Monumenta");
+        monumenta.remove("PlayerModified");
+        MinecraftClient.getInstance().player.sendMessage(Text.of("Fixed compound : " + replaced));
+        Optional<MonumentaItem> result;
+        memo.put(compound, result = Optional.ofNullable(nbts.get(monumenta)));
+        return result;
     }
 
     static {
-        items = new CopyOnWriteArrayList<>();
+        items = new HashSet<>();
         nbts = new HashMap<>();
 
     }
@@ -66,6 +70,7 @@ public class Items {
 
         LOGGER.info("Fetching items...");
         String res = ApiRequests.fetchResponse();
+        LOGGER.info("Done fetching items.");
         Gson g = new Gson();
         JsonObject o = g.fromJson(res, JsonObject.class);
         o.asMap().forEach((k, v) -> addItem(ItemParser.decode(k, v.getAsJsonObject())));

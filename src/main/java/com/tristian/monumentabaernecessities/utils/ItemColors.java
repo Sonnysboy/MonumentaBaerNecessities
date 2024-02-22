@@ -2,6 +2,8 @@ package com.tristian.monumentabaernecessities.utils;
 
 import net.minecraft.nbt.NbtCompound;
 
+import java.awt.*;
+
 /**
  * Credit: Monumenta Item Dictionary
  */
@@ -50,7 +52,7 @@ public class ItemColors {
     public static final int LIME_COLOR = 0x54FC54;
     public static final int PINK_COLOR = 0xFC68B2;
     public static final int GRAY_COLOR = 0x545454;
-    public static final int LIGHT_GRAY_COLOR = 0xA8A8A8;
+    public static final int LIGHT_GRAY_COLOR = Color.GRAY.darker().getRGB();
     public static final int CYAN_COLOR = 0x00A8A8;
     public static final int PURPLE_COLOR = 0xA800A8;
     public static final int TEAL_COLOR = 0x46B4B3;
@@ -90,7 +92,7 @@ public class ItemColors {
     public static final int EPHEMERAL_ENHANCEMENTS_COLOR = 0x890000;
     public static final int VERDANT_COLOR = 0x158115;
     public static final int KAUL_COLOR = 0x00A800;
-    public static final int SKT_COLOR = 0xBEBEBE;
+    public static final int SKT_COLOR = 0xC0C0C0;
     public static final int THE_WOLFSWOOD_COLOR = 0x4B8D4C;
     public static final int BLUE_COLOR = 0x0C2BA0;
     public static final int BROWN_COLOR = 0x6F3508;
@@ -127,6 +129,7 @@ public class ItemColors {
     public static final int CHALLENGER_COLOR = 0xFBD910;
     public static final int TRUE_NORTH_COLOR = 0xFFD700;
     public static final int STARPOINT_COLOR = 0x342768;
+    public static final int SIRIUS_COLOR = 0x34CFBC;
 
     public static int getColorForTier(String itemTier) {
         return switch (itemTier) {
@@ -374,6 +377,8 @@ public class ItemColors {
                 yield TRUE_NORTH_COLOR;
             case "Starpoint":
                 yield STARPOINT_COLOR;
+            case "Sirius":
+                yield SIRIUS_COLOR;
             default:
                 yield DEFAULT_COLOR;
         };
