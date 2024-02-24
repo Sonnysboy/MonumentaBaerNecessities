@@ -29,6 +29,8 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
 
     public static Locations locations = new Locations();
 
+    public static MinecraftClient mc;
+
 
     public static final String OPTIONS_FILE_NAME = "monumenta-baer-necessities.json";
 
@@ -45,6 +47,9 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+
+        mc = MinecraftClient.getInstance();
+
         loadItems();
 
         ItemDebuggingHelpers.register();
@@ -63,13 +68,6 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
             // Any issue with the config file silently reverts to the default config
             LOGGER.error("Caught error whilst trying to load configuration file", e);
         }
-
-        // This code runs as soon as Minecraft is in a mod-load-ready state.
-        // However, some things (like resources) may still be uninitialized.
-        // Proceed with mild caution.
-
-        LOGGER.info("Hello Fabric world!");
-
         ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip);
 
         PsPlayer.register();

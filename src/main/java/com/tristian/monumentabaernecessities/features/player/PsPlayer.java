@@ -36,17 +36,17 @@ public class PsPlayer {
             while (binding.wasPressed()) {
                 getHoveredPlayer().ifPresent(x -> {
                     if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
-                        MinecraftClient.getInstance().player.sendMessage(Text.of("Looking at something!"));
+                        MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at something!"));
                     }
                     if (x instanceof PlayerEntity pe) {
                         Text t = pe.getName();
                         if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
-                            assert MinecraftClient.getInstance().player != null;
-                            MinecraftClient.getInstance().player.sendMessage(Text.of("Looking at player!"));
-                            MinecraftClient.getInstance().player.sendMessage(Text.of("Looking at " + t));
+                            assert MonumentaBaerNecessities.mc.player != null;
+                            MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at player!"));
+                            MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at " + t));
                         }
-                        assert MinecraftClient.getInstance().player != null;
-                        MinecraftClient.getInstance().player.networkHandler.sendChatCommand("ps " + t.getString());
+                        assert MonumentaBaerNecessities.mc.player != null;
+                        MonumentaBaerNecessities.mc.player.networkHandler.sendChatCommand("ps " + t.getString());
 
                     }
                 });

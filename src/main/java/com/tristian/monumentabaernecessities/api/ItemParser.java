@@ -33,11 +33,11 @@ public class ItemParser {
 //        System.out.println("for object : " + object);
 
 //        we have a decision to make here. we're wasting space by doing this but it makes the code look nice
-        Locations location = Optional.ofNullable(object.get("location")).map(JsonElement::getAsString).flatMap(Locations::fromJson).orElse(null);
-        Regions region = Optional.ofNullable(object.get("region")).map(JsonElement::getAsString).flatMap(Regions::fromJson).orElse(null);
-        Tiers tier = Optional.ofNullable(object.get("tier")).map(JsonElement::getAsString).flatMap(Tiers::fromJson).orElse(null);
-        String name = Optional.ofNullable(object.get("name")).map(JsonElement::getAsString).orElse(null);
-        String lore = Optional.ofNullable(object.get("lore")).map(JsonElement::getAsString).orElse(null);
+        Locations location  = Optional.ofNullable(object.get("location")).map(JsonElement::getAsString).flatMap(Locations::fromJson).orElse(null);
+        Regions region      = Optional.ofNullable(object.get("region")).map(JsonElement::getAsString).flatMap(Regions::fromJson).orElse(null);
+        Tiers tier          = Optional.ofNullable(object.get("tier")).map(JsonElement::getAsString).flatMap(Tiers::fromJson).orElse(null);
+        String name         = Optional.ofNullable(object.get("name")).map(JsonElement::getAsString).orElse(null);
+        String lore         = Optional.ofNullable(object.get("lore")).map(JsonElement::getAsString).orElse(null);
 
         String baseItem = object.get("base_item").getAsString();
 

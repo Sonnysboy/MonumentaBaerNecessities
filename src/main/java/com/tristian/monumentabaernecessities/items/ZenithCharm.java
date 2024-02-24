@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.tristian.monumentabaernecessities.MonumentaBaerNecessities.mc;
+
 /**
  * Represents a zenith charm.
  * Zenith charm nbt looks something like:
@@ -244,7 +246,7 @@ public class ZenithCharm {
             CharmRolls rolls = new CharmRolls();
             for (; amount >= 1; amount--) {
                 if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
-                    MinecraftClient.getInstance().player.sendMessage(Text.of(charmData.getString("DEPTHS_CHARM_EFFECT"+amount) + ":" + charmData.get("DEPTHS_CHARM_ROLLS"+amount)));
+                    mc.player.sendMessage(Text.of(charmData.getString("DEPTHS_CHARM_EFFECT"+amount) + ":" + charmData.get("DEPTHS_CHARM_ROLLS"+amount)));
                 }
                 String key;
                 rolls.put(key = charmData.getString("DEPTHS_CHARM_EFFECT" + amount),
