@@ -71,6 +71,7 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
         ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip);
 
         PsPlayer.register();
+        AbbreviateRarity.register();
 //		HudRenderCallback
 
     }
