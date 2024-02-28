@@ -26,15 +26,7 @@ public class NbtUtils {
     public static Optional<NbtCompound> getMonumentaDataFromItem(ItemStack item) {
         return getCompound(item, "Monumenta");
     }
-    public static String getString(NbtCompound compound, String tag) {
-        return compound.getString(tag);
-    }
-    public static boolean getBoolean(NbtCompound compound, String tag) {
-        return compound.getBoolean(tag);
-    }
-    public static NbtList getList(NbtCompound compound, String tag, int type) {
-        return compound.getList(tag, type);
-    }
+
 //    todo hmmm
     public static Optional<List<String>> getLore(ItemStack item) {
         return getNbt(item).map(y -> getCompound(y, "display")).map(x -> {

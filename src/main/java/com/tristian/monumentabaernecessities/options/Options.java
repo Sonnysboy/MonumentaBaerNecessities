@@ -25,6 +25,9 @@ public class Options implements ch.njol.minecraft.config.Options {
     @Category("world")
     public boolean cosmicStyleDamageIndicators = true;
 
+    @Category("hud")
+    public boolean displayClosestPoiHUD = true; // display in the hud. Tooltip is just going to be on 24/7.
+
 
 
     @Override

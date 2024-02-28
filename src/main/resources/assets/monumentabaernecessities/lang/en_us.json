@@ -9,7 +9,8 @@
   "monumenta-baer-necessities.config.category.dev": "Debugging",
   "monumenta-baer-necessities.config.option.debugOptionsEnabled" : "Enable debug features",
 
-
+  "monumenta-baer-necessities.config.category.hud": "Hud",
+  "monumenta-baer-necessities.config.option.displayClosestPoiHUD" : "Display the closest town to your bounty POI.",
   "monumenta-baer-necessities.config.category.render" : "World",
   "monumenta-baer-necessities.config.option.cosmicStyleDamageIndicators" : "Cosmic-Style damage indicators",
 
