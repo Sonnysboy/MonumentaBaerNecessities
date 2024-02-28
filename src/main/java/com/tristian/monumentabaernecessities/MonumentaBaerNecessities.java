@@ -1,30 +1,22 @@
 package com.tristian.monumentabaernecessities;
 
 import ch.njol.minecraft.config.Config;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.tristian.monumentabaernecessities.api.Items;
 import com.tristian.monumentabaernecessities.features.debug.ItemDebuggingHelpers;
 import com.tristian.monumentabaernecessities.features.inventory.AbbreviateRarity;
-import com.tristian.monumentabaernecessities.features.overlays.BountyHelper;
 import com.tristian.monumentabaernecessities.features.overlays.CZCharmOverlay;
 import com.tristian.monumentabaernecessities.features.player.PsPlayer;
 import com.tristian.monumentabaernecessities.locations.Locations;
 import com.tristian.monumentabaernecessities.options.Options;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Objects;
+import java.io.*;
 
 // ay btw i aint ever written a fabric mod or anything above 1.12.2 forge so this is gonna be fun
 public class MonumentaBaerNecessities implements ClientModInitializer {
@@ -59,7 +51,6 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
         mc = MinecraftClient.getInstance();
 
         loadItems();
-        loadPois();
 
         ItemDebuggingHelpers.register();
 
@@ -77,10 +68,7 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
             // Any issue with the config file silently reverts to the default config
             LOGGER.error("Caught error whilst trying to load configuration file", e);
         }
-        ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
-            CZCharmOverlay.onItemTooltip(stack, context, lines);
-            BountyHelper.onItemTooltip(stack, context, lines);
-        });
+        ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip);
 
         PsPlayer.register();
         AbbreviateRarity.register();
@@ -91,33 +79,5 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
         Items.load();
 
 
-    }
-
-    // credit: Unofficial Monumenta Mod
-    public static boolean isOnMonumenta() {
-        boolean onMM = false;
-        MinecraftClient mc = MinecraftClient.getInstance();
-        String shard = Locations.getShard();
-
-        if (!Objects.equals(shard, "unknown")) {
-            onMM = true;
-        }
-
-        if (!onMM && mc.getCurrentServerEntry() != null) {
-            onMM = !mc.isInSingleplayer() && mc.getCurrentServerEntry().address.toLowerCase().endsWith(".playmonumenta.com");
-        }
-        return onMM;
-    }
-    public static void loadPois() {
-        LOGGER.info("Loading pois...");
-        File f = FabricLoader.getInstance().getConfigDir().resolve("pois.json").toFile();
-        Gson gson = new Gson();
-        try {
-            pois = gson.fromJson(Files.readString(f.toPath()), JsonObject.class);
-        } catch (IOException e) {
-            LOGGER.error("Could not load POIS: ");
-            e.printStackTrace();
-        }
-        LOGGER.info("Success! loaded " + pois.size() + " pois.");
     }
 }
