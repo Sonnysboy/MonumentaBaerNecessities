@@ -1,5 +1,7 @@
 package com.tristian.monumentabaernecessities.mixin;
 
+import com.tristian.monumentabaernecessities.api.events.DrawItemInSlotCallback;
+import com.tristian.monumentabaernecessities.api.events.SlotDrawnCallback;
 import com.tristian.monumentabaernecessities.features.inventory.AbbreviateRarity;
 import com.tristian.monumentabaernecessities.features.inventory.ColorByWoolDungeon;
 import net.minecraft.client.gui.DrawContext;
@@ -16,7 +18,7 @@ public class HandledScreenMixin {
 
     @Inject(method = "drawSlot", at = @At("HEAD"))
     private void drawSlot(DrawContext context, Slot slot, CallbackInfo ci) {
-        ColorByWoolDungeon.onSlotDrawn(context, slot);
+        SlotDrawnCallback.EVENT.invoker().onSlotDrawn(context, slot);
     }
 
 

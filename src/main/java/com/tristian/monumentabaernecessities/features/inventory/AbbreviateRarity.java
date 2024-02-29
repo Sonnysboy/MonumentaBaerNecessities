@@ -5,6 +5,8 @@ import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
 import com.tristian.monumentabaernecessities.api.Items;
 import com.tristian.monumentabaernecessities.api.MonumentaItem;
 import com.tristian.monumentabaernecessities.api.enums.Tiers;
+import com.tristian.monumentabaernecessities.api.events.DrawItemInSlotCallback;
+import com.tristian.monumentabaernecessities.api.features.Feature;
 import com.tristian.monumentabaernecessities.utils.ItemColors;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.Keyboard;
@@ -18,21 +20,23 @@ import org.lwjgl.glfw.GLFW;
 /**
  * Show rarity as a letter while rendering an item.
  */
-public class AbbreviateRarity {
+public class AbbreviateRarity extends Feature {
 
     static KeyBinding binding;
 
-    public static void register() {
+    @Override
+    public void init() {
         binding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.monumenta-baer-necessities.abbreviateRarity",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_LEFT_CONTROL,
                 "category.monumenta-baer-necessities"
         ));
+        DrawItemInSlotCallback.EVENT.register(this::onDrawItemInSlot);
     }
 
 
-    public static void onDrawItemInSlot(DrawContext context, TextRenderer textRenderer, ItemStack stack, int x, int y, String countOverride) {
+    private void onDrawItemInSlot(DrawContext context, TextRenderer textRenderer, ItemStack stack, int x, int y, String countOverride) {
         if (stack.isEmpty()) return;
         if (MonumentaBaerNecessities.mc.currentScreen == null) return; // this feature only works in the inventory.
         if (!InputUtil.isKeyPressed(MonumentaBaerNecessities.mc.getWindow().getHandle(), KeyBindingHelper.getBoundKeyOf(binding).getCode())) return;

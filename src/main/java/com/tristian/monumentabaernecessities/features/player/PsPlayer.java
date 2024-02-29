@@ -1,6 +1,7 @@
 package com.tristian.monumentabaernecessities.features.player;
 
 import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
+import com.tristian.monumentabaernecessities.api.features.Feature;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
@@ -20,39 +21,41 @@ import java.util.Optional;
 /**
  * /ps a player by looking at them and using the keybind
  */
-public class PsPlayer {
+public class PsPlayer extends Feature {
     public static KeyBinding binding;
 
 
-
-    public static void register() {
+    @Override
+    public void init() {
         binding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.monumenta-baer-necessities.psplayer",
                 InputUtil.Type.MOUSE,
                 GLFW.GLFW_MOUSE_BUTTON_MIDDLE,
                 "category.monumenta-baer-necessities"
         ));
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (binding.wasPressed()) {
-                getHoveredPlayer().ifPresent(x -> {
-                    if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
-                        MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at something!"));
-                    }
-                    if (x instanceof PlayerEntity pe) {
-                        Text t = pe.getName();
-                        if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
-                            assert MonumentaBaerNecessities.mc.player != null;
-                            MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at player!"));
-                            MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at " + t));
-                        }
-                        assert MonumentaBaerNecessities.mc.player != null;
-                        MonumentaBaerNecessities.mc.player.networkHandler.sendChatCommand("ps " + t.getString());
-
-                    }
-                });
-            }
-        });
+        ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
     }
+    private void onEndTick(MinecraftClient client) {
+        while (binding.wasPressed()) {
+            getHoveredPlayer().ifPresent(x -> {
+                if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
+                    MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at something!"));
+                }
+                if (x instanceof PlayerEntity pe) {
+                    Text t = pe.getName();
+                    if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
+                        assert MonumentaBaerNecessities.mc.player != null;
+                        MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at player!"));
+                        MonumentaBaerNecessities.mc.player.sendMessage(Text.of("Looking at " + t));
+                    }
+                    assert MonumentaBaerNecessities.mc.player != null;
+                    MonumentaBaerNecessities.mc.player.networkHandler.sendChatCommand("ps " + t.getString());
+
+                }
+            });
+        }
+    }
+
 
     private static Optional<Entity> getHoveredPlayer() {
         HitResult hitResult = MinecraftClient.getInstance().crosshairTarget;

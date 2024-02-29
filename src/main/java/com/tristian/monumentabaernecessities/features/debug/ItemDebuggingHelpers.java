@@ -1,6 +1,7 @@
 package com.tristian.monumentabaernecessities.features.debug;
 
 import com.tristian.monumentabaernecessities.api.Items;
+import com.tristian.monumentabaernecessities.api.features.Feature;
 import com.tristian.monumentabaernecessities.utils.ItemColors;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.item.ItemStack;
@@ -9,9 +10,9 @@ import net.minecraft.text.Text;
 import static net.minecraft.server.command.CommandManager.literal;
 
 // this class contains a few debug features
-public class ItemDebuggingHelpers {
+public class ItemDebuggingHelpers extends Feature  {
 
-    public static void register() {
+    public void init() {
 
         CommandRegistrationCallback.EVENT.register(
                 (dispatcher, registryAccess, environment) -> dispatcher.register(literal("tryparseitem")

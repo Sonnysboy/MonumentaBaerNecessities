@@ -4,6 +4,7 @@ import ch.njol.minecraft.config.Config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.tristian.monumentabaernecessities.api.Items;
+import com.tristian.monumentabaernecessities.features.Features;
 import com.tristian.monumentabaernecessities.features.debug.ItemDebuggingHelpers;
 import com.tristian.monumentabaernecessities.features.inventory.AbbreviateRarity;
 import com.tristian.monumentabaernecessities.features.overlays.CZCharmOverlay;
@@ -16,7 +17,8 @@ import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 // ay btw i aint ever written a fabric mod or anything above 1.12.2 forge so this is gonna be fun
 public class MonumentaBaerNecessities implements ClientModInitializer {
@@ -26,9 +28,7 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_IDENTIFIER);
 
 
-    public static Locations locations = new Locations();
 
-    public static JsonObject pois;
 
     public static MinecraftClient mc;
 
@@ -52,8 +52,6 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
 
         loadItems();
 
-        ItemDebuggingHelpers.register();
-
 
         try {
             options = Config.readJsonFile(Options.class, OPTIONS_FILE_NAME);
@@ -68,10 +66,8 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
             // Any issue with the config file silently reverts to the default config
             LOGGER.error("Caught error whilst trying to load configuration file", e);
         }
-        ItemTooltipCallback.EVENT.register(CZCharmOverlay::onItemTooltip);
+        Features.loadFeatures(); // laod features last.
 
-        PsPlayer.register();
-        AbbreviateRarity.register();
     }
 
     private static void loadItems() {

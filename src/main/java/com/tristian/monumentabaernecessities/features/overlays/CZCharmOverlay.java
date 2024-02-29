@@ -2,7 +2,9 @@ package com.tristian.monumentabaernecessities.features.overlays;
 
 import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
 import com.tristian.monumentabaernecessities.api.Items;
+import com.tristian.monumentabaernecessities.api.features.Feature;
 import com.tristian.monumentabaernecessities.items.ZenithCharm;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
@@ -13,10 +15,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CZCharmOverlay {
+public class CZCharmOverlay extends Feature {
 
 
-    public static void onItemTooltip(ItemStack stack, TooltipContext context, List<Text> lines) {
+    public void init() {
+
+        ItemTooltipCallback.EVENT.register(this::onItemTooltip);
+    }
+
+    private void onItemTooltip(ItemStack stack, TooltipContext context, List<Text> lines) {
 
         if (!MonumentaBaerNecessities.options.showCzRolls) return;
 
@@ -41,4 +48,5 @@ public class CZCharmOverlay {
             });
         }
     }
+
 }

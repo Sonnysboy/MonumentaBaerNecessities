@@ -4,6 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
 import com.tristian.monumentabaernecessities.api.Items;
 import com.tristian.monumentabaernecessities.api.MonumentaItem;
+import com.tristian.monumentabaernecessities.api.events.SlotDrawnCallback;
+import com.tristian.monumentabaernecessities.api.features.Feature;
 import com.tristian.monumentabaernecessities.utils.ItemColors;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.screen.slot.Slot;
@@ -11,9 +13,13 @@ import net.minecraft.screen.slot.Slot;
 /**
  * Outline an item in an inventory if it's from a wool dungeon.
  */
-public class ColorByWoolDungeon {
+public class ColorByWoolDungeon extends Feature {
 
-    public static void onSlotDrawn(DrawContext context, Slot slot) {
+    public void init() {
+        SlotDrawnCallback.EVENT.register(this::onSlotDrawn);
+    }
+
+    private void onSlotDrawn(DrawContext context, Slot slot) {
         if (!MonumentaBaerNecessities.options.inventoryWoolItemOutlines) return;
         Items.fromNbt(slot.getStack().getNbt()).flatMap(MonumentaItem::getLocation).ifPresent(location -> {
             int color;
