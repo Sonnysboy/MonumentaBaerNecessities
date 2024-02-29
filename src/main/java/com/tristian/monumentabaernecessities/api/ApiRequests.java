@@ -44,24 +44,4 @@ public class ApiRequests {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        String res = fetchResponse();
-        Gson g = new Gson();
-        JsonObject o = g.fromJson(res, JsonObject.class);
-
-        File f = new File("monkey.txt");
-        f.createNewFile();
-        try (FileWriter fw = new FileWriter(f)) {
-            o.asMap().forEach((k, v) -> {
-                try {
-                    fw.write(k + ":" +ItemParser.decode(k, v.getAsJsonObject()) + "\n");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 }

@@ -54,7 +54,6 @@ public class Items {
         NbtCompound replaced = compound.copy();
         NbtCompound monumenta = replaced.getCompound("Monumenta");
         monumenta.remove("PlayerModified");
-        MinecraftClient.getInstance().player.sendMessage(Text.of("Fixed compound : " + replaced));
         Optional<MonumentaItem> result;
         memo.put(compound, result = Optional.ofNullable(nbts.get(monumenta)));
         return result;

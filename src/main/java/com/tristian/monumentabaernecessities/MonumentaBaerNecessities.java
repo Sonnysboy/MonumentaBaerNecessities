@@ -1,18 +1,11 @@
 package com.tristian.monumentabaernecessities;
 
 import ch.njol.minecraft.config.Config;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.tristian.monumentabaernecessities.api.Items;
 import com.tristian.monumentabaernecessities.features.Features;
-import com.tristian.monumentabaernecessities.features.debug.ItemDebuggingHelpers;
-import com.tristian.monumentabaernecessities.features.inventory.AbbreviateRarity;
-import com.tristian.monumentabaernecessities.features.overlays.CZCharmOverlay;
-import com.tristian.monumentabaernecessities.features.player.PsPlayer;
-import com.tristian.monumentabaernecessities.locations.Locations;
 import com.tristian.monumentabaernecessities.options.Options;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +19,6 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
     public static final String MOD_IDENTIFIER = "monumenta-baer-necessities";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_IDENTIFIER);
-
-
 
 
     public static MinecraftClient mc;
@@ -66,7 +57,7 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
             // Any issue with the config file silently reverts to the default config
             LOGGER.error("Caught error whilst trying to load configuration file", e);
         }
-        Features.loadFeatures(); // laod features last.
+        Features.loadFeatures(); // load features last.
 
     }
 
