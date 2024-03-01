@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 
+import static com.tristian.monumentabaernecessities.MonumentaBaerNecessities.LOGGER;
 import static net.minecraft.server.command.CommandManager.literal;
 
 // this class contains a few debug features
@@ -24,6 +25,12 @@ public class ItemDebuggingHelpers extends Feature  {
                                 context.getSource().getPlayer().sendMessage(Text.literal("Which should also have color : " + ItemColors.getColorForLocation(x.getLocation().get().getJsonValue())));
                                 return x;
                             })));
+                            return 1;
+                        })));
+        CommandRegistrationCallback.EVENT.register(
+                (dispatcher, registryAccess, environment) -> dispatcher.register(literal("grabenchantments")
+                        .executes(context -> {
+                            LOGGER.info(String.valueOf(context.getSource().getPlayer().getMainHandStack().getEnchantments()));
                             return 1;
                         })));
     }
