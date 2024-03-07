@@ -1,6 +1,7 @@
 package com.tristian.monumentabaernecessities.options;
 
 import ch.njol.minecraft.config.annotations.Category;
+import ch.njol.minecraft.uiframework.ElementPosition;
 import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
 
 // credit where credit is due: Unofficial Monumenta Mod
@@ -26,7 +27,9 @@ public class Options implements ch.njol.minecraft.config.Options {
     public boolean cosmicStyleDamageIndicators = true;
 
     @Category("hud")
-    public boolean displayClosestPoiHUD = true; // display in the hud. Tooltip is just going to be on 24/7.
+    public boolean displayActiveSituationals_enabled = true;
+    @Category("hud")
+    public ElementPosition displayActiveSituationals_position = new ElementPosition(1.0f, 0, 0.5f, 0, 0, 0);
 
 
 

@@ -2,15 +2,12 @@ package com.tristian.monumentabaernecessities.api;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.tristian.monumentabaernecessities.MonumentaBaerNecessities;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.StringNbtReader;
-import net.minecraft.text.Text;
 
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import static com.tristian.monumentabaernecessities.MonumentaBaerNecessities.LOGGER;
 
@@ -25,16 +22,12 @@ public class Items {
 
     static void addItem(MonumentaItem item) {
         items.add(item);
-        try {
-            NbtCompound nbt = StringNbtReader.parse(item.getNbt()).getCompound("Monumenta");
-            if (nbt == null) {
-                System.out.println(item + " MONUMENTA NBT IS NULL");
-            }
-//            nbt.remove("Damage"); // you can go fuck yourself
-            nbts.put(nbt, item);
-        } catch (CommandSyntaxException e) {
-            throw new RuntimeException(e);
+        NbtCompound nbt = item.getWrappedNbt().getCompound("Monumenta");
+        if (nbt == null) {
+            System.out.println(item + " MONUMENTA NBT IS NULL");
         }
+//            nbt.remove("Damage"); // you can go fuck yourself
+        nbts.put(nbt, item);
 
 
     }
@@ -47,7 +40,8 @@ public class Items {
 
     // memoized
     private static final HashMap<NbtCompound, Optional<MonumentaItem>> memo = new HashMap<>();
-    public static Optional<MonumentaItem> fromNbt(NbtCompound compound) {
+
+    protected static Optional<MonumentaItem> fromNbt(NbtCompound compound) {
 
         if (compound == null) return Optional.empty();
         if (memo.containsKey(compound)) return memo.get(compound);
@@ -58,13 +52,6 @@ public class Items {
         memo.put(compound, result = Optional.ofNullable(nbts.get(monumenta)));
         return result;
     }
-
-    static {
-        items = new HashSet<>();
-        nbts = new HashMap<>();
-
-    }
-
     public static void load() {
 
         LOGGER.info("Fetching items...");
@@ -74,6 +61,11 @@ public class Items {
         JsonObject o = g.fromJson(res, JsonObject.class);
         o.asMap().forEach((k, v) -> addItem(ItemParser.decode(k, v.getAsJsonObject())));
         LOGGER.info("Successfully loaded " + items.size() + " items!");
+    }
+    static {
+        items = new HashSet<>();
+        nbts = new HashMap<>();
+
     }
 
 }

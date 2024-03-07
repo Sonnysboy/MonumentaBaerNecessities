@@ -1,9 +1,13 @@
 package com.tristian.monumentabaernecessities.api;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.tristian.monumentabaernecessities.api.enums.Locations;
 import com.tristian.monumentabaernecessities.api.enums.Regions;
 import com.tristian.monumentabaernecessities.api.enums.Tiers;
 import com.tristian.monumentabaernecessities.api.stats.ItemStats;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.StringNbtReader;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -51,6 +55,9 @@ public class MonumentaItem {
 
     private final String nbt;
 
+//    we wrap this up here because it's expensive to compute (i imagine)
+    private final NbtCompound wrappedNbt;
+
     private final String type;
 
     private final ItemStats stats;
@@ -97,6 +104,11 @@ public class MonumentaItem {
         this.stats = stats;
         this.plainLore = lore;
         this.region = region;
+        try {
+            this.wrappedNbt = StringNbtReader.parse(nbt);
+        } catch (CommandSyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Methods
@@ -237,6 +249,22 @@ public class MonumentaItem {
     public Optional<CharmData> getCharmData() {
         return Optional.ofNullable(charmData);
     }
+
+    /**
+     *
+     * @return The nbt of the item as wrapped inside a Minecraft <code>{@link NbtCompound}</code>
+     */
+    public NbtCompound getWrappedNbt() {
+        return wrappedNbt;
+    }
+
+    public static Optional<MonumentaItem> of (ItemStack item) {
+        return of(item.getNbt());
+    }
+    public static Optional<MonumentaItem> of(NbtCompound nbt) {
+        return Items.fromNbt(nbt);
+    }
+
     // charm data for charms
     protected record CharmData(
             String className,

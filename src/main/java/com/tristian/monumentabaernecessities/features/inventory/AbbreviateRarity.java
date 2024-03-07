@@ -40,7 +40,7 @@ public class AbbreviateRarity extends Feature {
         if (stack.isEmpty()) return;
         if (MonumentaBaerNecessities.mc.currentScreen == null) return; // this feature only works in the inventory.
         if (!InputUtil.isKeyPressed(MonumentaBaerNecessities.mc.getWindow().getHandle(), KeyBindingHelper.getBoundKeyOf(binding).getCode())) return;
-        Items.fromNbt(stack.getNbt()).flatMap(MonumentaItem::getTier).ifPresent(tier -> {
+        MonumentaItem.of(stack.getNbt()).flatMap(MonumentaItem::getTier).ifPresent(tier -> {
             String text = String.valueOf(tier.getJsonValue().charAt(0));
             context.getMatrices().translate(0.0F, 0.0F, 200.0F);
             context.drawText(textRenderer, text, x + 6 - textRenderer.getWidth(text), y + 1, ItemColors.getColorForTier(tier.getJsonValue()), true);

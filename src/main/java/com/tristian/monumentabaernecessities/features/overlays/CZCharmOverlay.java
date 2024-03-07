@@ -33,7 +33,7 @@ public class CZCharmOverlay extends Feature {
         final var rolls = charm.get().getData().getRolls();
 
         if (MonumentaBaerNecessities.options.debugOptionsEnabled) {
-            assert MinecraftClient.getInstance().player != null;
+            if (MinecraftClient.getInstance().player == null) return;
             MinecraftClient.getInstance().player.sendMessage(Text.of(charm.get().toString()));
             MinecraftClient.getInstance().player.sendMessage(Text.of(rolls.toString()));
         }

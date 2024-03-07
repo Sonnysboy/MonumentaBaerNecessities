@@ -21,7 +21,7 @@ public class ColorByWoolDungeon extends Feature {
 
     private void onSlotDrawn(DrawContext context, Slot slot) {
         if (!MonumentaBaerNecessities.options.inventoryWoolItemOutlines) return;
-        Items.fromNbt(slot.getStack().getNbt()).flatMap(MonumentaItem::getLocation).ifPresent(location -> {
+        MonumentaItem.of(slot.getStack().getNbt()).flatMap(MonumentaItem::getLocation).ifPresent(location -> {
             int color;
             if ((color = ItemColors.getColorForLocation(location.getJsonValue())) == ItemColors.DEFAULT_COLOR) return;
 

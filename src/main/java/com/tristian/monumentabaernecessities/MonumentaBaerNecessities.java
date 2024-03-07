@@ -1,11 +1,14 @@
 package com.tristian.monumentabaernecessities;
 
 import ch.njol.minecraft.config.Config;
+import ch.njol.minecraft.uiframework.hud.Hud;
 import com.google.gson.JsonParseException;
 import com.tristian.monumentabaernecessities.api.Items;
 import com.tristian.monumentabaernecessities.features.Features;
+import com.tristian.monumentabaernecessities.hud.SituationalsHud;
 import com.tristian.monumentabaernecessities.options.Options;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +23,8 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_IDENTIFIER);
 
+
+    public static final SituationalsHud SITUATIONALS_HUD = SituationalsHud.INSTANCE;
 
     public static MinecraftClient mc;
 
@@ -58,6 +63,7 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
             LOGGER.error("Caught error whilst trying to load configuration file", e);
         }
         Features.loadFeatures(); // load features last.
+        Hud.INSTANCE.addElement(SITUATIONALS_HUD);
 
     }
 

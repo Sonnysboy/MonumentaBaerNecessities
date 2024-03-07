@@ -158,7 +158,7 @@ public class ZenithCharm {
      * @return see above.
      */
     private static Optional<List<String>> plainLore(ItemStack item) {
-        return NbtUtils.getNbt(item) // { plain : { display : { Lore : {[
+        return Optional.ofNullable(item.getNbt()) // { plain : { display : { Lore : {[
                 .map(x -> x.getCompound("plain")) // { display : { Lore : {]
                 .map(x -> x.getCompound("display")) // { Lore : {[
                 .map(x -> x.getList("Lore", 8)) // values.
