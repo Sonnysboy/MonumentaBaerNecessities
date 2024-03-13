@@ -6,10 +6,12 @@ import com.google.gson.JsonParseException;
 import com.tristian.monumentabaernecessities.api.Items;
 import com.tristian.monumentabaernecessities.features.Features;
 import com.tristian.monumentabaernecessities.hud.SituationalsHud;
+import com.tristian.monumentabaernecessities.options.ConfigMenu;
 import com.tristian.monumentabaernecessities.options.Options;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.command.SetBlockCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +66,7 @@ public class MonumentaBaerNecessities implements ClientModInitializer {
         }
         Features.loadFeatures(); // load features last.
         Hud.INSTANCE.addElement(SITUATIONALS_HUD);
+        ConfigMenu.registerTypes();
 
     }
 
